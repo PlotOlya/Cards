@@ -1,9 +1,11 @@
+const { prompt } = require('inquirer');
+const path1 = `${__dirname}/topics`;
+const Model = require('./Model');
 
 class View {
-  static async display(dataArr) {
-    dataArr.forEach((el) => console.log(el));
+  static async display(theme) {
+    
   }
-  constructor() {}
 }
 
 module.exports = View;
