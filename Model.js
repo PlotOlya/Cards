@@ -1,5 +1,4 @@
 const fs = require('fs').promises;
-const path1 = `${__dirname}/topics`;
 class Model {
   constructor(path) {
     this.path = path;
@@ -12,9 +11,5 @@ class Model {
       .then((data) => data.forEach((el) => console.log(el)));
   }
 }
-
-let test = new Model(path1);
-
-test.checkDir();
 
 module.exports = Model;
