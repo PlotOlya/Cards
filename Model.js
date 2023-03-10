@@ -10,10 +10,18 @@ class Model {
     return topics;
   }
 
+  static async readAwnsers(topic) {
+    this.awnsers = await fs
+      .readFile(`${__dirname}/topics/${topic}_flashcard_data.txt`, 'utf-8')
+      .then((data) => data.split('\n').filter((el, i) => i % 3 === 1));
+  }
+
   static async readQuestions(topic) {
-    const questions = await fs
+    this.questions = await fs
       .readFile(`${__dirname}/topics/${topic}_flashcard_data.txt`, 'utf-8')
       .then((data) => data.split('\n').filter((el, i) => i % 3 === 0));
+
+    this.answers = this.readAwnsers(topic);
 
     return this.questions.map((el, i) => ({
       type: 'input',
@@ -22,20 +30,9 @@ class Model {
     }));
   }
 
-  static async readAwnsers(topic) {
-    const awnsers = await fs
-      .readFile(`${__dirname}/topics/${topic}_flashcard_data.txt`, 'utf-8')
-      .then((data) => data.split('\n').filter((el, i) => i % 3 === 1));
-  }
-
   constructor(score = 0) {
     this.score = score;
   }
 }
-Model.checkDir();
-Model.readQuestions('nighthawk');
-Model.readAwnsers('nighthawk');
 
 module.exports = Model;
-
-// .then((data) => data.forEach((el, i) => console.log(`👉 ${i + 1}) ${el}`)));
